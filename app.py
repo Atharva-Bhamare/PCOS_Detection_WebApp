@@ -104,7 +104,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="big-title">🧬 PCOS Prediction Tool</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-title">🧬 PCOS Prediction Model</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtext">For Clinical Use Only - Doctor’s Interface</div>', unsafe_allow_html=True)
 st.markdown("---")
 
