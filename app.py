@@ -104,30 +104,30 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="big-title">🧬 PCOS Prediction Model</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-title">PCOS Prediction Model</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtext">For Clinical Use Only - Doctor’s Interface</div>', unsafe_allow_html=True)
 st.markdown("---")
 
 # ------------------------
 # Patient Input Form
 # ------------------------
-st.markdown("### 🧾 Patient Details")
+st.markdown("### Patient Details")
 
 col1, col2 = st.columns(2)
 with col1:
-    age = st.number_input("🔸 Age (years)", 10, 60, 25)
-    bmi = st.number_input("🔸 BMI (kg/m²)", 10.0, 50.0, 22.0)
-    irregular = st.radio("🔸 Menstrual Irregularity", ["No", "Yes"])
+    age = st.number_input("Age (years)", 10, 60, 25)
+    bmi = st.number_input("BMI (kg/m²)", 10.0, 50.0, 22.0)
+    irregular = st.radio("Menstrual Irregularity", ["No", "Yes"])
     menstrual_irregularity = 1 if irregular == "Yes" else 0
 
 with col2:
-    testosterone = st.number_input("🔹 Testosterone Level (ng/dL)", 10.0, 200.0, 60.0)
-    afc = st.number_input("🔹 Antral Follicle Count", 0, 30, 12)
+    testosterone = st.number_input("Testosterone Level (ng/dL)", 10.0, 200.0, 60.0)
+    afc = st.number_input("Antral Follicle Count", 0, 30, 12)
 
 # ------------------------
 # Predict Button
 # ------------------------
-if st.button("🔍 Predict PCOS"):
+if st.button("Predict PCOS"):
     features = np.array([[age, bmi, menstrual_irregularity, testosterone, afc]])
     features_scaled = scaler.transform(features)
     prediction = model.predict(features_scaled)[0]
@@ -136,20 +136,20 @@ if st.button("🔍 Predict PCOS"):
     # ------------------------
     # Display Result
     # ------------------------
-    st.markdown("### 🧪 Prediction Result")
+    st.markdown("### Prediction Result")
     if prediction == 1:
-        st.error(f"⚠️ **PCOS Likely Detected**\n\nProbability: `{prob:.2f}`")
-        st.markdown("> 💡 _Recommend further clinical evaluation._")
-        with st.expander("🌿 Health Tips"):
+        st.error(f" **PCOS Likely Detected**\n\nProbability: `{prob:.2f}`")
+        st.markdown("> _Recommend further clinical evaluation._")
+        with st.expander("Health Tips"):
             st.markdown("""
-            - 🥗 Balanced, low-sugar diet
-            - 🏃‍♀️ Regular physical activity
-            - 💊 Medication if prescribed
-            - 🧘‍♀️ Stress management
+            - Balanced, low-sugar diet
+            - Regular physical activity
+            - Medication if prescribed
+            - Stress management
             """)
     else:
-        st.success(f"✅ **PCOS Not Likely**\n\nProbability: `{prob:.2f}`")
-        st.markdown("> 🌸 _Patient appears healthy._")
+        st.success(f"**PCOS Not Likely**\n\nProbability: `{prob:.2f}`")
+        st.markdown("> _Patient appears healthy._")
 
     # ------------------------
     # Log Session
@@ -184,7 +184,7 @@ if st.button("🔍 Predict PCOS"):
     pdf_bytes = generate_pdf_report(pdf_data)
 
     st.download_button(
-        label="📄 Download PDF Report",
+        label="Download PDF Report",
         data=pdf_bytes,
         file_name=f"pcos_report_{timestamp.replace(':', '-')}.pdf",
         mime="application/pdf"
@@ -233,7 +233,7 @@ if st.button("🔍 Predict PCOS"):
         margin=dict(t=30, b=50, l=30, r=30)
     )
 
-    st.markdown("### 📊 Patient vs Normal Profile")
+    st.markdown("### Patient vs Normal Profile")
     st.plotly_chart(fig, use_container_width=True)
 
 # ------------------------
@@ -241,13 +241,8 @@ if st.button("🔍 Predict PCOS"):
 # ------------------------
 if st.session_state.log:
     st.markdown("---")
-    st.markdown("### 📜 Session History")
+    st.markdown("### Session History")
     df_log = pd.DataFrame(st.session_state.log)
     st.dataframe(df_log, use_container_width=True)
     csv = df_log.to_csv(index=False).encode('utf-8')
-    st.download_button("📤 Download Session Log (CSV)", csv, "pcos_session_log.csv", "text/csv")
-
-# ------------------------
-# Footer
-# ------------------------
-st.markdown('<div class="footer">Made with ❤️ for PS Mini Project</div>', unsafe_allow_html=True)
+    st.download_button("Download Session Log (CSV)", csv, "pcos_session_log.csv", "text/csv")
